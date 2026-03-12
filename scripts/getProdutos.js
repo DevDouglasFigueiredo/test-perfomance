@@ -4,7 +4,7 @@ import { fazerLogin } from '../utils/auth.js';
 
 export const options = {
     vus: 1,
-    duration: '20s',
+    iterations: 1
 };
 
 export function setup() {
@@ -17,11 +17,12 @@ export default function (data) {
     const authHeader = {
         contentType: 'application/json',
         headers: {
-            'Authorization': `${data.token}`,
+            'Authorization': `${data.authToken}`,
         },
     };
 
     const response = http.get('http://localhost:3000/produtos', authHeader);
+    console.log(`Resposta: ${response.body}`);
     check(response, {
         'get products successful': (resp) => resp.status === 200,
     });

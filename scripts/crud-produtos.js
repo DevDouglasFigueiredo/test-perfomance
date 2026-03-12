@@ -33,7 +33,7 @@ export default function (data) {
     };
 
     const produto = http.post(`${data.baseUrl}/produtos`, JSON.stringify({
-        "nome": "Produto Teste",
+        "nome": "Produto Teste II ",
         "preco": 10,
         "descricao": "Descrição do produto teste",
         "quantidade": 100
@@ -50,5 +50,21 @@ export default function (data) {
     const getResponseProduct = http.get(`${data.baseUrl}/produtos/${produtoId}`, { headers: authHeader });
     check(getResponseProduct, {
         'get product successful': (resp) => resp.status === 200,
+    });
+
+    const updateResponseProduct = http.put(`${data.baseUrl}/produtos/${produtoId}`, JSON.stringify({
+        "nome": "Produto Teste Atualizado",
+        "preco": 20,
+        "descricao": "Descrição do produto teste atualizado",
+        "quantidade": 50
+    }), { headers: authHeader });
+
+    check(updateResponseProduct, {
+        'update product successful': (resp) => resp.status === 200,
+    });
+
+    const deleteResponseProduct = http.del(`${data.baseUrl}/produtos/${produtoId}`, null, { headers: authHeader });
+    check(deleteResponseProduct, {
+        'delete product successful': (resp) => resp.status === 200,
     });
 }   
